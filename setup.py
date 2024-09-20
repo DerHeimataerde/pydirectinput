@@ -5,13 +5,13 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="PyDirectInput",
-    version="1.0.4",
-    author="Ben Johnson",
-    author_email="ben@learncodebygaming.com",
+    version="1.0.4.1",
+    author="Ben Johnson,DerHeimataerde",
+    author_email="ben@learncodebygaming.com,leztemp@gmail.com",
     description="Python mouse and keyboard input automation for Windows using Direct Input.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/learncodebygaming/pydirectinput",
+    url="https://github.com/DerHeimataerde/pydirectinput",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
