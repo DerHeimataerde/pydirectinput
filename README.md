@@ -12,6 +12,8 @@ Source code available at https://github.com/learncodebygaming/pydirectinput
 
 Watch the tutorial here: https://www.youtube.com/watch?v=LFDGgFRqVIs
 
+MODIFIED to include Hotkey functionality
+
 ## Example Usage
 
 ```python
