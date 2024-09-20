@@ -91,17 +91,17 @@ KEYBOARD_MAPPING = {
     'subtract': 0x4A,
     'add': 0x4E,
     'decimal': 0x53,
-    'numpadenter': 0x9C + 1024,
-    'numpad1': 0x4F,
-    'numpad2': 0x50,
-    'numpad3': 0x51,
-    'numpad4': 0x4B,
-    'numpad5': 0x4C,
-    'numpad6': 0x4D,
-    'numpad7': 0x47,
-    'numpad8': 0x48,
-    'numpad9': 0x49,
-    'numpad0': 0x52,
+    'numenter': 0x9C + 1024,
+    'num1': 0x4F,
+    'num2': 0x50,
+    'num3': 0x51,
+    'num4': 0x4B,
+    'num5': 0x4C,
+    'num6': 0x4D,
+    'num7': 0x47,
+    'num8': 0x48,
+    'num9': 0x49,
+    'num0': 0x52,
     # end numpad
     'tab': 0x0F,
     'q': 0x10,
@@ -567,4 +567,39 @@ def typewrite(message, interval=0.0, logScreenshot=None, _pause=True):
 
 write = typewrite
 
-# Missing feature: hotkey functions
+# Added feature: hotkey functions
+@_genericPyDirectInputChecks
+def hotkey(*args, **kwargs):
+    """Performs key down presses on the arguments passed in order, then performs
+    key releases in reverse order.
+
+    The effect is that calling hotkey('ctrl', 'shift', 'c') would perform a
+    "Ctrl-Shift-C" hotkey/keyboard shortcut press.
+
+    Args:
+      key(s) (str): The series of keys to press, in order. This can also be a
+        list of key strings to press.
+      interval (float, optional): The number of seconds in between each press.
+        0.0 by default, for no pause in between presses.
+
+    Returns:
+      None
+    """
+    interval = float(kwargs.get("interval", 0.0))  # TODO - this should be taken out.
+    pause = bool(kwargs.get("_pause", True))
+
+    if len(args) and not isinstance(args[0], str):
+        # Let the user pass a list of strings
+        args = tuple(args[0])
+
+    #_logScreenshot(kwargs.get("logScreenshot"), "hotkey", ",".join(args), folder=".")
+    for c in args:
+        if len(c) > 1:
+            c = c.lower()
+        keyDown(c,_pause=pause)
+        time.sleep(interval)
+    for c in reversed(args):
+        if len(c) > 1:
+            c = c.lower()
+        keyUp(c,_pause=pause)
+        time.sleep(interval)
